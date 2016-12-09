@@ -34,7 +34,7 @@
 /**
  * @file board_config.h
  *
- * PX4FMUv2 internal definitions
+ * PX4FMUv4PRO internal definitions
  */
 
 #pragma once
@@ -194,8 +194,10 @@ __BEGIN_DECLS
 #define ADC_BATTERY_CURRENT_CHANNEL		3
 //#define ADC_BATTERY_VOLTAGE_CHANNEL2	4
 //#define ADC_BATTERY_CURRENT_CHANNEL2	5
+#define ADC_BATTERY_VOLTAGE_CHANNEL2	11
+#define ADC_BATTERY_CURRENT_CHANNEL2	13
 #define ADC_5V_RAIL_SENSE				4
-#define ADC_RC_RSSI_CHANNEL				11
+//#define ADC_RC_RSSI_CHANNEL				11
 
 /* User GPIOs
  *
@@ -221,8 +223,9 @@ __BEGIN_DECLS
 #define GPIO_VDD_3V3_SENSORS_EN	(GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_SET|GPIO_PORTE|GPIO_PIN3)
 #define GPIO_VDD_3V3_PERIPH_EN	(GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_SET|GPIO_PORTC|GPIO_PIN5)
 #define GPIO_VDD_5V_PERIPH_OC	(GPIO_INPUT|GPIO_PULLUP|GPIO_PORTG|GPIO_PIN4)
-#define GPIO_VDD_5V_RC_OC		(GPIO_INPUT|GPIO_PULLUP|GPIO_PORTF|GPIO_PIN3)
+#define GPIO_VDD_5V_HIPOWER_OC	(GPIO_INPUT|GPIO_PULLUP|GPIO_PORTF|GPIO_PIN3)
 #define GPIO_VBUS_VALID			(GPIO_INPUT|GPIO_PULLUP|GPIO_PORTC|GPIO_PIN0)
+#define VDD_5V_PERIPH_EN		(GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTI|GPIO_PIN7)
 
 /* Tone alarm output */
 #define TONE_ALARM_TIMER		2	/* timer 2 */
@@ -310,11 +313,12 @@ __BEGIN_DECLS
  * provides the true logic GPIO BOARD_ADC_xxxx macros.
  */
 #define BOARD_ADC_USB_CONNECTED (px4_arch_gpioread(GPIO_OTGFS_VBUS))
-#define BOARD_ADC_BRICK_VALID   (px4_arch_gpioread(GPIO_VDD_BRICK_VALID))
-#define BOARD_ADC_BRICK2_VALID  (px4_arch_gpioread(GPIO_VDD_BRICK2_VALID))
+#define BOARD_ADC_BRICK_VALID   (!px4_arch_gpioread(GPIO_VDD_BRICK_VALID))
+#define BOARD_ADC_BRICK2_VALID  (!px4_arch_gpioread(GPIO_VDD_BRICK2_VALID))
+#define BOARD_ADC_VBUS_VALID	(!px4_arch_gpioread(GPIO_VBUS_VALID))
 #define BOARD_ADC_SERVO_VALID   (1)
-#define BOARD_ADC_PERIPH_5V_OC  (px4_arch_gpioread(GPIO_VDD_5V_PERIPH_OC))
-#define BOARD_ADC_HIPOWER_5V_OC (0)
+#define BOARD_ADC_PERIPH_5V_OC  (!px4_arch_gpioread(GPIO_VDD_5V_PERIPH_OC))
+#define BOARD_ADC_HIPOWER_5V_OC (!px4_arch_gpioread(GPIO_VDD_5V_HIPOWER_OC))
 
 #define BOARD_HAS_PWM	DIRECT_PWM_OUTPUT_CHANNELS
 
@@ -326,7 +330,12 @@ __BEGIN_DECLS
 		{GPIO_GPIO4_INPUT,       GPIO_GPIO4_OUTPUT,       0}, \
 		{GPIO_GPIO5_INPUT,       GPIO_GPIO5_OUTPUT,       0}, \
 		{0,                      GPIO_VDD_3V3_SENSORS_EN, 0}, \
-		{GPIO_VDD_BRICK_VALID,   0,                       0}, }
+		{0,                      GPIO_VDD_3V3_PERIPH_EN,  0}, \
+		{0,                      GPIO_VDD_5V_PERIPH_EN,   0}, \
+		{GPIO_VDD_BRICK_VALID,   0,                       0}, \
+		{GPIO_VDD_BRICK2_VALID,  0,                       0}, \
+		{GPIO_VDD_5V_PERIPH_OC,  0,                       0}, \
+		{GPIO_VDD_5V_HIPOWER_OC, 0,                       0}, }
 
 /* This board provides a DMA pool and APIs */
 
