@@ -318,6 +318,7 @@ struct log_PWR_s {
 	float servo_rssi;
 	uint8_t usb_ok;
 	uint8_t brick_ok;
+	uint8_t brick2_ok;
 	uint8_t servo_ok;
 	uint8_t low_power_rail_overcurrent;
 	uint8_t high_power_rail_overcurrent;

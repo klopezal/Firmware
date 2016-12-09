@@ -367,6 +367,7 @@ ADC::update_system_power(hrt_abstime now)
 	system_power.usb_connected = BOARD_ADC_USB_CONNECTED;
 
 	system_power.brick_valid   = BOARD_ADC_BRICK_VALID;
+	system_power.brick2_valid  = BOARD_ADC_BRICK2_VALID;
 	system_power.servo_valid   = BOARD_ADC_SERVO_VALID;
 
 	// OC pins are active low

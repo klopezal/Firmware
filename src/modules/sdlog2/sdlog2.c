@@ -2105,6 +2105,7 @@ int sdlog2_thread_main(int argc, char *argv[])
 				log_msg.body.log_PWR.peripherals_5v = buf.system_power.voltage5V_v;
 				log_msg.body.log_PWR.usb_ok = buf.system_power.usb_connected;
 				log_msg.body.log_PWR.brick_ok = buf.system_power.brick_valid;
+				log_msg.body.log_PWR.brick2_ok = buf.system_power.brick2_valid;
 				log_msg.body.log_PWR.servo_ok = buf.system_power.servo_valid;
 				log_msg.body.log_PWR.low_power_rail_overcurrent = buf.system_power.periph_5V_OC;
 				log_msg.body.log_PWR.high_power_rail_overcurrent = buf.system_power.hipower_5V_OC;

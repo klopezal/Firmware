@@ -1973,7 +1973,7 @@ int commander_thread_main(int argc, char *argv[])
 
 			if (hrt_elapsed_time(&system_power.timestamp) < 200000) {
 				if (system_power.servo_valid &&
-				    !system_power.brick_valid &&
+				    (!system_power.brick_valid || !system_power.brick2_valid) &&
 				    !system_power.usb_connected) {
 					/* flying only on servo rail, this is unsafe */
 					status_flags.condition_power_input_valid = false;
