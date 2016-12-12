@@ -171,11 +171,17 @@ stm32_boardinitialize(void)
 	stm32_configgpio(GPIO_ADC1_IN2);	/* BATT_VOLTAGE_SENS */
 	stm32_configgpio(GPIO_ADC1_IN3);	/* BATT_CURRENT_SENS */
 	stm32_configgpio(GPIO_ADC1_IN4);	/* VDD_5V_SENS */
-	stm32_configgpio(GPIO_ADC1_IN11);	/* RSSI analog in */
+	//stm32_configgpio(GPIO_ADC1_IN11);	/* RSSI analog in */
+	stm32_configgpio(GPIO_ADC1_IN11);	/* BATT2_VOLTAGE_SENS */
+	stm32_configgpio(GPIO_ADC1_IN13);	/* BATT2_CURRENT_SENS */
 
 	/* configure power supply control/sense pins */
 	stm32_configgpio(GPIO_VDD_3V3_PERIPH_EN);
 	stm32_configgpio(GPIO_VDD_BRICK_VALID);
+	stm32_configgpio(GPIO_VDD_BRICK2_VALID);
+	stm32_configgpio(GPIO_VBUS_VALID);
+	stm32_configgpio(GPIO_VDD_3V3_SENSORS_EN);
+	stm32_configgpio(GPIO_VDD_5V_PERIPH_EN);
 
 	stm32_configgpio(GPIO_SBUS_INV);
 	stm32_configgpio(GPIO_8266_GPIO0);
