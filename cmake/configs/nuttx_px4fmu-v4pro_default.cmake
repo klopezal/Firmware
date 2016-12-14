@@ -49,7 +49,7 @@ set(config_module_list
 	drivers/camera_trigger
 	drivers/bst
 	drivers/snapdragon_rc_pwm
-	drivers/lis3mdl
+	#drivers/lis3mdl
 	drivers/sf1xx
 	drivers/bmp280
 	drivers/bma180
