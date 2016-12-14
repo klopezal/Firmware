@@ -302,9 +302,8 @@ __BEGIN_DECLS
 
 // FMUv4-pro has a separate GPIO for serial RC output
 //#define GPIO_RC_OUT			(GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_SET|GPIO_PORTB|GPIO_PIN0)
-#define GPIO_RC_OUT					GPIO_SBUS_INV
-#define SPEKTRUM_RX_AS_GPIO()		px4_arch_configgpio(GPIO_RC_OUT)
-#define SPEKTRUM_RX_HIGH(_s)		px4_arch_gpiowrite(GPIO_RC_OUT, (_s))
+//#define SPEKTRUM_RX_AS_GPIO()		px4_arch_configgpio(GPIO_RC_OUT)
+//#define SPEKTRUM_RX_HIGH(_s)		px4_arch_gpiowrite(GPIO_RC_OUT, (_s))
 
 
 #define	BOARD_NAME "PX4FMU_V4PRO"
@@ -333,6 +332,7 @@ __BEGIN_DECLS
 		{0,                      GPIO_VDD_3V3_SENSORS_EN, 0}, \
 		{0,                      GPIO_VDD_3V3_PERIPH_EN,  0}, \
 		{0,                      GPIO_VDD_5V_PERIPH_EN,   0}, \
+		{0,                      GPIO_SBUS_INV,           0}, \
 		{GPIO_VDD_BRICK_VALID,   0,                       0}, \
 		{GPIO_VDD_BRICK2_VALID,  0,                       0}, \
 		{GPIO_VDD_5V_PERIPH_OC,  0,                       0}, \
