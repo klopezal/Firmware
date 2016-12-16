@@ -1145,9 +1145,9 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 	scaling[2] = sum_excited[2] / good_count;
 
 	/* set scaling in device */
-	mscale_previous.x_scale = 1.0f / scaling[0];
-	mscale_previous.y_scale = 1.0f / scaling[1];
-	mscale_previous.z_scale = 1.0f / scaling[2];
+	_scale.x_scale = 1.0f / scaling[0];
+	_scale.y_scale = 1.0f / scaling[1];
+	_scale.z_scale = 1.0f / scaling[2];
 
 	ret = OK;
 
