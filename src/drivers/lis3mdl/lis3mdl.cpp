@@ -1123,6 +1123,11 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 				fabsf(expected_cal[2] / report.z)
 			       };
 
+		PX4_INFO("Inside loop, i is : %d",i);
+		PX4_INFO("cal[0] is : ",(double)cal[0]);
+		PX4_INFO("cal[1] is : ",(double)cal[1]);
+		PX4_INFO("cal[2] is : ",(double)cal[2]);
+				   
 		if (cal[0] > 0.7f && cal[0] < 1.35f &&
 		    cal[1] > 0.7f && cal[1] < 1.35f &&
 		    cal[2] > 0.7f && cal[2] < 1.35f) {
