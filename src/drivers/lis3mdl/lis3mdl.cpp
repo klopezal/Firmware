@@ -1151,7 +1151,7 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 	mscale_previous.y_scale = 1.0f / scaling[1];
 	mscale_previous.z_scale = 1.0f / scaling[2];
 	
-	PX4_INFO("******* Value of mscale_previous.x_scale : %f",(float)mscale_previous.x_scale);
+	PX4_INFO("******* Value of mscale_previous.x_scale : %f",(double)mscale_previous.x_scale);
 	PX4_INFO("******* Value of mscale_previous.y_scale : %f",(float)mscale_previous.y_scale);
 	PX4_INFO("******* Value of mscale_previous.z_scale : %f",(float)mscale_previous.z_scale);
 
