@@ -1086,7 +1086,7 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		}
 
 		/* now go get it */
-		sz = read(filp, &report, sizeof(report));
+		sz = read(fd, &report, sizeof(report));
 
 		if (sz != sizeof(report)) {
 			warn("ERROR: READ 1");
