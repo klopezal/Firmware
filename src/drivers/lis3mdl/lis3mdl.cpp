@@ -1086,7 +1086,7 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		}
 
 		/* now go get it */
-		sz = ::read(fd, &report, sizeof(report));
+		sz = read(filp, &report, sizeof(report));
 
 		if (sz != sizeof(report)) {
 			warn("ERROR: READ 1");
@@ -1110,7 +1110,9 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		}
 
 		/* now go get it */
-		sz = ::read(filp, &report, sizeof(report));
+		sz = ::read(fd, &report, sizeof(report));
+		
+		PX4_INFO("******* LIS3MDL : read x is : ",report.x);
 
 		if (sz != sizeof(report)) {
 			warn("ERROR: READ 2");
