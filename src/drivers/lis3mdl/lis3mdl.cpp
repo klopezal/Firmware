@@ -1220,6 +1220,9 @@ int LIS3MDL::check_calibration()
 	bool offset_valid = (check_offset() == OK);
 	bool scale_valid  = (check_scale() == OK);
 
+	PX4_INFO("******* LIS3MDL offset_valid %d", offset_valid);
+	PX4_INFO("******* LIS3MDL scale_valid %d", scale_valid);
+	
 	if (_calibrated != (offset_valid && scale_valid)) {
 		warnx("mag cal status changed %s%s", (scale_valid) ? "" : "scale invalid ",
 		      (offset_valid) ? "" : "offset invalid");
