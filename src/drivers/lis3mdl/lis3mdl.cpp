@@ -1136,9 +1136,9 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 			       };
 
 		
-		PX4_INFO("cal[0] is : ",(double)cal[0]);
-		PX4_INFO("cal[1] is : ",(double)cal[1]);
-		PX4_INFO("cal[2] is : ",(double)cal[2]);
+		PX4_INFO("cal[0] is : %8.4f",(double)cal[0]);
+		PX4_INFO("cal[1] is : %8.4f",(double)cal[1]);
+		PX4_INFO("cal[2] is : %8.4f",(double)cal[2]);
 				   
 		if (cal[0] > 0.7f && cal[0] < 1.35f &&
 		    cal[1] > 0.7f && cal[1] < 1.35f &&
