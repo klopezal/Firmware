@@ -1133,6 +1133,8 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		}
 	}
 
+	PX4_INFO("******* Value of good_count : %d",good_count);
+	
 	if (good_count < 5) {
 		ret = -EIO;
 		goto out;
@@ -1145,10 +1147,18 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 	scaling[2] = sum_excited[2] / good_count;
 
 	/* set scaling in device */
-	_scale.x_scale = 1.0f / scaling[0];
-	_scale.y_scale = 1.0f / scaling[1];
-	_scale.z_scale = 1.0f / scaling[2];
+	mscale_previous.x_scale = 1.0f / scaling[0];
+	mscale_previous.y_scale = 1.0f / scaling[1];
+	mscale_previous.z_scale = 1.0f / scaling[2];
+	
+	PX4_INFO("******* Value of mscale_previous.x_scale : %d",mscale_previous.x_scale);
+	PX4_INFO("******* Value of mscale_previous.y_scale : %d",mscale_previous.y_scale);
+	PX4_INFO("******* Value of mscale_previous.z_scale : %d",mscale_previous.z_scale);
 
+	PX4_INFO("******* Value of _scale.x_scale : %d",_scale.x_scale);
+	PX4_INFO("******* Value of _scale.y_scale : %d",_scale.y_scale);
+	PX4_INFO("******* Value of _scale.z_scale : %d",_scale.z_scale);
+	
 	ret = OK;
 
 out:
@@ -1156,6 +1166,10 @@ out:
 	if (OK != ioctl(filp, MAGIOCSSCALE, (long unsigned int)&mscale_previous)) {
 		warn("FAILED: MAGIOCSSCALE 2");
 	}
+	
+	PX4_INFO("******* Value of _scale.x_scale : %d",_scale.x_scale);
+	PX4_INFO("******* Value of _scale.y_scale : %d",_scale.y_scale);
+	PX4_INFO("******* Value of _scale.z_scale : %d",_scale.z_scale);
 
 	/* set back to normal mode */
 	/* Set to 4 Gauss */
