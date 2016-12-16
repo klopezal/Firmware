@@ -1088,9 +1088,9 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		/* now go get it */
 		sz = ::read(fd, &report, sizeof(report));
 
-		PX4_INFO("******* LIS3MDL : read1 x is : %f",(double)report.x);
-		PX4_INFO("******* LIS3MDL : read1 y is : %f",(double)report.y);
-		PX4_INFO("******* LIS3MDL : read1 z is : %f",(double)report.z);
+		PX4_INFO("******* LIS3MDL : read1 x is : %8.4f",(double)report.x);
+		PX4_INFO("******* LIS3MDL : read1 y is : %8.4f",(double)report.y);
+		PX4_INFO("******* LIS3MDL : read1 z is : %8.4f",(double)report.z);
 		
 		if (sz != sizeof(report)) {
 			warn("ERROR: READ 1");
@@ -1116,9 +1116,9 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		/* now go get it */
 		sz = ::read(fd, &report, sizeof(report));
 		
-		PX4_INFO("******* LIS3MDL : read2 x is : %f",(double)report.x);
-		PX4_INFO("******* LIS3MDL : read2 y is : %f",(double)report.y);
-		PX4_INFO("******* LIS3MDL : read2 z is : %f",(double)report.z);
+		PX4_INFO("******* LIS3MDL : read2 x is : %8.4f",(double)report.x);
+		PX4_INFO("******* LIS3MDL : read2 y is : %8.4f",(double)report.y);
+		PX4_INFO("******* LIS3MDL : read2 z is : %8.4f",(double)report.z);
 
 		if (sz != sizeof(report)) {
 			warn("ERROR: READ 2");
