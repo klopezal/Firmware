@@ -1110,7 +1110,7 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		}
 
 		/* now go get it */
-		sz = ::read(fd, &report, sizeof(report));
+		sz = ::read(filp, &report, sizeof(report));
 
 		if (sz != sizeof(report)) {
 			warn("ERROR: READ 2");
@@ -1118,12 +1118,16 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 			goto out;
 		}
 
+		PX4_INFO("Inside loop, i is : %d",i);
+		
+		
+		
 		float cal[3] = {fabsf(expected_cal[0] / report.x),
 				fabsf(expected_cal[1] / report.y),
 				fabsf(expected_cal[2] / report.z)
 			       };
 
-		PX4_INFO("Inside loop, i is : %d",i);
+		
 		PX4_INFO("cal[0] is : ",(double)cal[0]);
 		PX4_INFO("cal[1] is : ",(double)cal[1]);
 		PX4_INFO("cal[2] is : ",(double)cal[2]);
