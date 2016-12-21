@@ -86,7 +86,7 @@ LIS3MDL_SPI_interface(int bus)
 }
 
 LIS3MDL_SPI::LIS3MDL_SPI(int bus, spi_dev_e device) :
-	SPI("LIS3MDL_SPI", nullptr, bus, device, SPIDEV_MODE3, 11 * 1000 * 1000 /* will be rounded to 10.4 MHz */)
+	SPI("LIS3MDL_SPI", nullptr, bus, device, SPIDEV_MODE3, 10 * 1000 * 1000 /* will be rounded to 10.4 MHz */)
 {
 	_device_id.devid_s.devtype = DRV_MAG_DEVTYPE_LIS3MDL;
 }
