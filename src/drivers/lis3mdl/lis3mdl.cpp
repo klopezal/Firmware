@@ -669,7 +669,7 @@ LIS3MDL::ioctl(struct file *filp, int cmd, unsigned long arg)
 
 					/* check against maximum rate */
 					if (ticks < USEC2TICK(LIS3MDL_CONVERSION_INTERVAL)) {
-// RobD: quick fix for Phil's testing						return -EINVAL;
+						return -EINVAL;
 					}
 
 					/* update interval for next measurement */
@@ -1039,9 +1039,9 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 	 * LSM/Ga, giving 1.16 and 1.08 */
 	float expected_cal[3] = { 1.16f, 1.08f, 1.08f };
 
-	/* start the sensor polling at 50 Hz */
-	if (OK != ioctl(filp, SENSORIOCSPOLLRATE, 50)) {
-		warn("FAILED: SENSORIOCSPOLLRATE 50Hz");
+	/* start the sensor polling at 60 Hz */
+	if (OK != ioctl(filp, SENSORIOCSPOLLRATE, 60)) {
+		warn("FAILED: SENSORIOCSPOLLRATE 60Hz");
 		ret = 1;
 		goto out;
 	}
@@ -1259,7 +1259,7 @@ int LIS3MDL::set_excitement(unsigned enable)
 		_cntl_reg1 |= 0x01;
 	}
 
-	::printf("set_excitement enable=%d cntl1=0x%x\n", (int)enable, (unsigned)_cntl_reg1);
+	::printf("set_excitement enable=%d cntl1=0x%2x\n", (int)enable, (unsigned)_cntl_reg1);
 
 	ret = write_reg(ADDR_CTRL_REG1, _cntl_reg1);
 
@@ -1393,12 +1393,12 @@ start_bus(struct lis3mdl_bus_option &bus, enum Rotation rotation)
 		errx(1, "Failed to setup poll rate");
 	}
 
-	/* start the sensor polling at 50 Hz */
-	if (OK != ioctl(fd, SENSORIOCSPOLLRATE, 50)) {
-		warn("FAILED: SENSORIOCSPOLLRATE 50Hz");
+	/* start the sensor polling at 60 Hz */
+	if (OK != ioctl(fd, SENSORIOCSPOLLRATE, 60)) {
+		warn("FAILED: SENSORIOCSPOLLRATE 60Hz");
 	}
 
-	printf("set poll rate to 50Hz\n");
+	printf("set poll rate to 60Hz\n");
 
 	/* Set to 4 Gauss */
 	if (OK != ioctl(fd, MAGIOCSRANGE, 4)) {
@@ -1502,9 +1502,9 @@ test(enum LIS3MDL_BUS busid)
 		errx(1, "failed to set queue depth");
 	}
 
-	/* start the sensor polling at 2Hz */
-	if (OK != ioctl(fd, SENSORIOCSPOLLRATE, 2)) {
-		errx(1, "failed to set 2Hz poll rate");
+	/* start the sensor polling at 60Hz */
+	if (OK != ioctl(fd, SENSORIOCSPOLLRATE, 60)) {
+		errx(1, "failed to set 60Hz poll rate");
 	}
 
 	/* read the sensor 5x and report each value */
