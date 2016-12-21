@@ -84,7 +84,7 @@
  */
 
 /* Max measurement rate is 80Hz */
-#define LIS3MDL_CONVERSION_INTERVAL	(1000000 / 50)	/* 20,000 microseconds */
+#define LIS3MDL_CONVERSION_INTERVAL	(1000000 / 80)	/* 12,500 microseconds */
 
 
 #define ADDR_CTRL_REG1		0x20
