@@ -1133,12 +1133,12 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		}
 		
 		PX4_INFO("*******LIS3MDL******* Inside loop i is : %d",i);
-		PX4_INFO("*******LIS3MDL******* Value x is : %f",(double)report.x);
-		PX4_INFO("*******LIS3MDL******* Value y is : %f",(double)report.y);
-		PX4_INFO("*******LIS3MDL******* Value z is : %f",(double)report.z);
-		PX4_INFO("*******LIS3MDL******* Value cal[0] is : %f",(double)cal[0]);
-		PX4_INFO("*******LIS3MDL******* Value cal[1] is : %f",(double)cal[1]);
-		PX4_INFO("*******LIS3MDL******* Value cal[2] is : %f",(double)cal[2]);
+		PX4_INFO("*******LIS3MDL******* Value x is : %8.4f",(double)report.x);
+		PX4_INFO("*******LIS3MDL******* Value y is : %8.4f",(double)report.y);
+		PX4_INFO("*******LIS3MDL******* Value z is : %8.4f",(double)report.z);
+		PX4_INFO("*******LIS3MDL******* Value cal[0] is : %8.4f",(double)cal[0]);
+		PX4_INFO("*******LIS3MDL******* Value cal[1] is : %8.4f",(double)cal[1]);
+		PX4_INFO("*******LIS3MDL******* Value cal[2] is : %8.4f",(double)cal[2]);
 		PX4_INFO("*******LIS3MDL******* Good count is : %d\n",good_count);
 		
 	}
