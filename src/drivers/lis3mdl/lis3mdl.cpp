@@ -510,7 +510,7 @@ void LIS3MDL::check_conf(void)
 
 		if (reg_in != _cntl_reg4) {
 			perf_count(_conf_errors);
-			ret = write_reg(ADDR_CTRL_REG1, _cntl_reg4);
+			ret = write_reg(ADDR_CTRL_REG4, _cntl_reg4);
 
 			if (OK != ret) {
 				perf_count(_comms_errors);
