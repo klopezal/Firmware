@@ -198,6 +198,18 @@ __BEGIN_DECLS
 #define ADC_5V_RAIL_SENSE				4
 #define ADC_RC_RSSI_CHANNEL				11
 
+/* Define Battery 1 Voltage Divider and A per V
+ */
+
+#define BOARD_BATTERY1_V_DIV (6.490196078f)
+#define BOARD_BATTERY1_A_PER_V (26.4f)
+
+/* Define Battery 2 Voltage Divider and A per V
+ */
+
+#define BOARD_BATTERY2_V_DIV (6.490196078f)
+#define BOARD_BATTERY2_A_PER_V (26.4f)
+
 /* User GPIOs
  *
  * GPIO0-5 are the PWM servo outputs.
