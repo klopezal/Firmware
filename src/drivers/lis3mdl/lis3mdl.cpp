@@ -940,32 +940,18 @@ LIS3MDL::collect()
 	/*
 	 * RAW outputs
 	 *
-	 * to align the sensor axes with the board, x and y need to be flipped
-	 * and y needs to be negated
 	 */
-	new_report.x_raw = report.y;
-	new_report.y_raw = -report.x;
-	/* z remains z */
+	new_report.x_raw = report.x;
+	new_report.y_raw = report.y;
 	new_report.z_raw = report.z;
 
-	/* scale values for output */
-
-	// XXX revisit for SPI part, might require a bus type IOCTL
-	unsigned dummy;
-	sensor_is_onboard = !_interface->ioctl(MAGIOCGEXTERNAL, dummy);
-
-	if (sensor_is_onboard) {
-		// convert onboard so it matches offboard for the
-		// scaling below
-		report.y = -report.y;
-		report.x = -report.x;
-	}
-
-	/* the standard external mag by 3DR has x pointing to the
-	 * right, y pointing backwards, and z down, therefore switch x
-	 * and y and invert y */
-	xraw_f = -report.y;
-	yraw_f = report.x;
+	/* the LIS3MDL mag on Pixhawk Pro by Drotek has x pointing towards,
+	 * y pointing to the right, and z down, therefore no switch needed,
+	 * it is better to have no artificial rotation inside the 
+	 * driver and then use the startup script with -R command with the 
+	 * real rotation between the sensor and body frame */
+	xraw_f = report.x;
+	yraw_f = report.y;
 	zraw_f = report.z;
 
 	// apply user specified rotation

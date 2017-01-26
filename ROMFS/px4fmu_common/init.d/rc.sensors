@@ -322,7 +322,7 @@ then
 	fi
 
 	# Internal SPI bus
-	if lis3mdl -R 2 start
+	if lis3mdl -R 0 start
 	then
 	fi
 fi
