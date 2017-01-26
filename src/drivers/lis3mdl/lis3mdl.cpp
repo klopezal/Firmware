@@ -1190,7 +1190,7 @@ int LIS3MDL::check_scale()
 	}
 
 	/* return 0 if calibrated, 1 else */
-	return !scale_valid;
+	return scale_valid;
 }
 
 int LIS3MDL::check_offset()
@@ -1208,7 +1208,7 @@ int LIS3MDL::check_offset()
 	}
 
 	/* return 0 if calibrated, 1 else */
-	return !offset_valid;
+	return offset_valid;
 }
 
 int LIS3MDL::check_calibration()
