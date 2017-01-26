@@ -129,6 +129,11 @@ public:
 	virtual int		ioctl(struct file *filp, int cmd, unsigned long arg);
 
 	/**
+	 * Stop the automatic measurement state machine.
+	 */
+	void			stop();
+	
+	/**
 	 * Diagnostics - print some basic information about the driver.
 	 */
 	void			print_info();
@@ -179,11 +184,6 @@ private:
 	 *       to make it more aggressive about resetting the bus in case of errors.
 	 */
 	void			start();
-
-	/**
-	 * Stop the automatic measurement state machine.
-	 */
-	void			stop();
 
 	/**
 	 * Reset the device
@@ -783,7 +783,11 @@ LIS3MDL::start()
 void
 LIS3MDL::stop()
 {
-	work_cancel(HPWORK, &_work);
+	if (_measure_ticks > 0) {
+		/* ensure no new items are queued while we cancel this one */
+		_measure_ticks = 0;
+		work_cancel(HPWORK, &_work);
+	}
 }
 
 int
@@ -804,6 +808,10 @@ LIS3MDL::cycle_trampoline(void *arg)
 void
 LIS3MDL::cycle()
 {
+	if (_measure_ticks == 0) {
+		return;
+	}	
+	
 	/* collection phase? */
 	if (_collect_phase) {
 
@@ -841,13 +849,15 @@ LIS3MDL::cycle()
 
 	/* next phase is collection */
 	_collect_phase = true;
-
-	/* schedule a fresh cycle call when the measurement is done */
-	work_queue(HPWORK,
-		   &_work,
-		   (worker_t)&LIS3MDL::cycle_trampoline,
-		   this,
-		   USEC2TICK(LIS3MDL_CONVERSION_INTERVAL));
+		   
+	if (_measure_ticks > 0) {
+		/* schedule a fresh cycle call when the measurement is done */
+		work_queue(HPWORK,
+			   &_work,
+			   (worker_t)&LIS3MDL::cycle_trampoline,
+			   this,
+			   USEC2TICK(LIS3MDL_CONVERSION_INTERVAL));
+	}		   
 }
 
 int
@@ -1338,6 +1348,7 @@ struct lis3mdl_bus_option {
 #define NUM_BUS_OPTIONS (sizeof(bus_options)/sizeof(bus_options[0]))
 
 void	start(enum LIS3MDL_BUS busid, enum Rotation rotation);
+int		stop();
 bool	start_bus(struct lis3mdl_bus_option &bus, enum Rotation rotation);
 struct lis3mdl_bus_option &find_bus(enum LIS3MDL_BUS busid);
 void	test(enum LIS3MDL_BUS busid);
@@ -1431,6 +1442,26 @@ start(enum LIS3MDL_BUS busid, enum Rotation rotation)
 	if (!started) {
 		exit(1);
 	}
+}
+
+/**
+ * Stop the driver.
+ */
+int
+stop()
+{
+	bool stopped = false;
+
+	for (unsigned i = 0; i < NUM_BUS_OPTIONS; i++) {
+		if (bus_options[i].dev != nullptr) {
+			bus_options[i].dev->stop();
+			delete bus_options[i].dev;
+			bus_options[i].dev = nullptr;
+			stopped = true;
+		}
+	}
+
+	return !stopped;
 }
 
 /**
@@ -1695,6 +1726,13 @@ lis3mdl_main(int argc, char *argv[])
 		exit(0);
 	}
 
+	/*
+	 * Stop the driver.
+	 */	
+	if (!strcmp(verb, "stop")) {
+		return lis3mdl::stop();
+	}
+	
 	/*
 	 * Test the driver/device.
 	 */
