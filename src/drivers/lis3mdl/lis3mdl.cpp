@@ -1197,9 +1197,9 @@ int LIS3MDL::check_offset()
 {
 	bool offset_valid;
 
-	if ((-2.0f * FLT_EPSILON < _scale.x_offset && _scale.x_offset < 2.0f * FLT_EPSILON) &&
-	    (-2.0f * FLT_EPSILON < _scale.y_offset && _scale.y_offset < 2.0f * FLT_EPSILON) &&
-	    (-2.0f * FLT_EPSILON < _scale.z_offset && _scale.z_offset < 2.0f * FLT_EPSILON)) {
+	if ((-0.6f < _scale.x_offset && _scale.x_offset < 0.6f) &&
+	    (-0.6f < _scale.y_offset && _scale.y_offset < 0.6f) &&
+	    (-0.6f < _scale.z_offset && _scale.z_offset < 0.6f)) {
 		/* offset is zero */
 		offset_valid = false;
 
