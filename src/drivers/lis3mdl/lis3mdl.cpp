@@ -1076,8 +1076,6 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		sum_non_excited[0] += report.x;
 		sum_non_excited[1] += report.y;
 		sum_non_excited[2] += report.z;	
-		
-		PX4_INFO("Values non excited : %8.4f %8.4f %8.4f",(double)report.x, (double)report.y, (double)report.z);
 	}
 	
 	sum_non_excited[0] /= 10.0f;
@@ -1143,16 +1141,12 @@ int LIS3MDL::calibrate(struct file *filp, unsigned enable)
 		sum_excited[0] += report.x;
 		sum_excited[1] += report.y;
 		sum_excited[2] += report.z;	
-		
-		PX4_INFO("Values excited : %8.4f %8.4f %8.4f",(double)report.x, (double)report.y, (double)report.z);
 	}
 	
 	sum_excited[0] /= 10.0f;
 	sum_excited[1] /= 10.0f;
 	sum_excited[2] /= 10.0f;	
 
-	PX4_INFO("Final values: %8.4f %8.4f %8.4f",(double)fabsf(sum_excited[0] - sum_non_excited[0]), (double)fabsf(sum_excited[1] - sum_non_excited[1]), (double)fabsf(sum_excited[2] - sum_non_excited[2]));
-	
 	if (1.0f < fabsf(sum_excited[0] - sum_non_excited[0]) && fabsf(sum_excited[0] - sum_non_excited[0]) < 3.0f &&
 		1.0f < fabsf(sum_excited[1] - sum_non_excited[1]) && fabsf(sum_excited[1] - sum_non_excited[1]) < 3.0f &&
 		0.1f < fabsf(sum_excited[2] - sum_non_excited[2]) && fabsf(sum_excited[2] - sum_non_excited[2]) < 1.0f){
