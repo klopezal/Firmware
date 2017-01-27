@@ -196,10 +196,10 @@ __BEGIN_DECLS
 // ADC defines to be used in sensors.cpp to read from a particular channel
 #define ADC_BATTERY_VOLTAGE_CHANNEL		2
 #define ADC_BATTERY_CURRENT_CHANNEL		3
-//#define ADC_BATTERY_VOLTAGE_CHANNEL2	4
-//#define ADC_BATTERY_CURRENT_CHANNEL2	5
 #define ADC_5V_RAIL_SENSE				4
-#define ADC_RC_RSSI_CHANNEL				11
+#define ADC_BATTERY2_VOLTAGE_CHANNEL	11
+#define ADC_BATTERY2_CURRENT_CHANNEL	13
+//#define ADC_RC_RSSI_CHANNEL				11
 
 /* Define Battery 1 Voltage Divider and A per V
  */
