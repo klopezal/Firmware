@@ -1224,11 +1224,11 @@ int LIS3MDL::check_calibration()
 	}
 
 	/* return 0 if calibrated, 1 else */
-	if(!_calibrated){
+	if (!_calibrated) {
 		return 0;
-	}
-	else{
-		return 1;	
+
+	} else {
+		return 1;
 	}
 }
 
